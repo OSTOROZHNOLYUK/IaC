@@ -1,0 +1,13 @@
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    ports:
+      - "10521:8080"
+    # networks:
+      # - team
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      DOZZLE_BASE: /debug/dozzle

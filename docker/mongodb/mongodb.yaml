@@ -1,0 +1,18 @@
+services:
+  mongodb:
+    image: mongodb/mongodb-community-server:latest
+    container_name: mongodb
+    ports:
+      - "10501:27017"
+    # networks:
+      # - team
+    restart: unless-stopped
+    volumes:
+      - mongoVol:/data/db
+    command: --wiredTigerCacheSizeGB 1
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: OLsfTeam
+volumes:
+  mongoVol:
+    external: true
