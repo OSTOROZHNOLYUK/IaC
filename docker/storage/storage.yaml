@@ -1,0 +1,11 @@
+services:
+  storage:
+    image: storage
+    container_name: storage
+    ports:
+      - "10502:10502"
+    # networks:
+      # - team
+    restart: unless-stopped
+    environment:
+      MONGO_DB_PASSWD: ${MONGO_DB_PASSWD}

@@ -14,6 +14,6 @@ nginxstop:
 	sudo docker compose -f docker/compose.yaml down
 
 storagestart:
-	sudo docker run -itd -p 10502:10502 --rm --name storage -e MONGO_DB_PASSWD=OLsfTeam storage
+	sudo docker compose -f docker/storage/storage.yaml --env-file docker/.env.dev up -d
 storagestop:
-	sudo docker stop storage
+	sudo docker compose -f docker/storage/storage.yaml --env-file docker/.env.dev down
