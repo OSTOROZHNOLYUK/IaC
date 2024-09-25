@@ -17,3 +17,8 @@ storagestart:
 	sudo docker compose -f docker/storage/storage.yaml --env-file docker/.env.dev up -d
 storagestop:
 	sudo docker compose -f docker/storage/storage.yaml --env-file docker/.env.dev down
+
+accountstart:
+	sudo docker compose -f docker/account/account.yaml --env-file docker/.env.dev up -d
+accountstop:
+	sudo docker compose -f docker/account/account.yaml --env-file docker/.env.dev down

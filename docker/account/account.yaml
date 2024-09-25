@@ -1,0 +1,16 @@
+services:
+  account:
+    image: account
+    container_name: account
+    ports:
+      - "10504:8000"
+    # networks:
+      # - team
+    restart: unless-stopped
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      POSTGRES_DB: ${POSTGRESQL_DB}
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASSWD}
+      POSTGRES_HOST: sf-hackathon.xyz
+      POSTGRES_PORT: 10503
