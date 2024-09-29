@@ -14,4 +14,4 @@ services:
       POSTGRES_PASSWORD: ${POSTGRESQL_PASSWD}
       POSTGRES_HOST: sf-hackathon.xyz
       POSTGRES_PORT: 10503
-      DJANGO_DEFAULT_URL: ${DJANGO_DEFAULT_URL}
+      DJANGO_DEFAULT_URL: https://sf-hackathon.xyz

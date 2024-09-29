@@ -9,3 +9,16 @@ services:
     restart: unless-stopped
     environment:
       MONGO_DB_PASSWD: ${MONGO_DB_PASSWD}
+  swagger:
+    image: swaggerapi/swagger-ui:latest
+    container_name: swagger
+    ports:
+      - "10522:8080"
+    restart: unless-stopped
+    volumes:
+      - /home/monzo/IaC/docker/storage/swagger.json:/storage/swagger.json:ro
+    environment:
+      SWAGGER_JSON: /storage/swagger.json
+    depends_on:
+      storage:
+        restart: true
