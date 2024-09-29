@@ -1,0 +1,11 @@
+services:
+  tgbot:
+    image: tgbot
+    container_name: tgbot
+    ports:
+      - "10505:8081"
+    # networks:
+      # - team
+    restart: unless-stopped
+    environment:
+      TOKEN: ${TELEGRAM_TOKEN}

@@ -22,3 +22,8 @@ accountstart:
 	sudo docker compose -f docker/account/account.yaml --env-file docker/.env.dev up -d
 accountstop:
 	sudo docker compose -f docker/account/account.yaml --env-file docker/.env.dev down
+
+tgbotstart:
+	sudo docker compose -f docker/tgbot/tgbot.yaml --env-file docker/.env.dev up -d
+tgbotstop:
+	sudo docker compose -f docker/tgbot/tgbot.yaml --env-file docker/.env.dev down
