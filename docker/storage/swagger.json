@@ -3,7 +3,7 @@
   "info": {
     "title": "Report Storage API - OpenAPI 3.0",
     "description": "REST API для взаимодействия с хранилищем заявок в проекте \"Осторожно, люк!\"\n***\nВ итоговом варианте будет доступно 12 методов. На данный момент реализовано 7.\n\n*Статусы могут принимать значения:*\n- *1 - Unverified*\n- *2 - Opened*\n- *3 - InProgress*\n- *4 - Closed*\n- *5 - Rejected*",
-    "version": "0.6.2"
+    "version": "0.6.3"
   },
   "servers": [
     {
@@ -542,13 +542,13 @@
           },
           "coordinates": {
             "type": "array",
+            "example": [
+              55.75388130172051,
+              37.62026781374883
+            ],
             "items": {
               "type": "number",
-              "format": "double",
-              "example": [
-                55.75388130172051,
-                37.62026781374883
-              ]
+              "format": "double"
             }
           }
         }
