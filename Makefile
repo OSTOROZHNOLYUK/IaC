@@ -14,9 +14,9 @@ nginxstop:
 	sudo docker compose -f docker/compose.yaml down
 
 storagestart:
-	sudo docker compose -f docker/storage/storage.yaml --env-file docker/.env.dev --env-file /home/monzo/.env.s3 up -d
+	sudo docker compose -f docker/storage/storage.yaml --env-file docker/.env.dev --env-file ~/.env.s3 up -d
 storagestop:
-	sudo docker compose -f docker/storage/storage.yaml --env-file docker/.env.dev --env-file /home/monzo/.env.s3 down
+	sudo docker compose -f docker/storage/storage.yaml --env-file docker/.env.dev --env-file ~/.env.s3 down
 
 accountstart:
 	sudo docker compose -f docker/account/account.yaml --env-file docker/.env.dev up -d

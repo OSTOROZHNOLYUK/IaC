@@ -578,11 +578,18 @@
       "NewReport": {
         "type": "object",
         "required": [
+          "city",
           "address",
           "geo"
         ],
         "description": "JSON формы новой заявки. Адрес и координаты обязательны.",
         "properties": {
+          "city": {
+            "type": "string",
+            "description": "Город или местность заявки.",
+            "maxLength": 100,
+            "example": "Москва"
+          },
           "address": {
             "type": "string",
             "description": "Ближайший адрес места заявки.",
