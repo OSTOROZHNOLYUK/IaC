@@ -363,13 +363,25 @@
                   "json": {
                     "$ref": "#/components/schemas/NewReport"
                   },
-                  "filename": {
-                    "type": "array",
-                    "description": "От 1 до 5 файлов изображений в формате jpg или png.",
-                    "items": {
-                      "type": "string",
-                      "format": "binary"
-                    }
+                  "file1": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "file2": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "file3": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "file4": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "file5": {
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -533,7 +545,10 @@
             "items": {
               "type": "number",
               "format": "double",
-              "example": "55.75388130172051, 37.62026781374883"
+              "example": [
+                55.75388130172051,
+                37.62026781374883
+              ]
             }
           }
         }
