@@ -23,6 +23,10 @@
     {
       "name": "New report",
       "description": "Новая заявка"
+    },
+    {
+      "name": "Account",
+      "description": "Эндпоинты с авторизацией по JWT токену"
     }
   ],
   "paths": {
@@ -67,6 +71,48 @@
             "description": "internal error"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Удаление заявки по номеру",
+        "description": "Удаление заявки по ее уникальному номеру.",
+        "parameters": [
+          {
+            "name": "num",
+            "in": "path",
+            "description": "Уникальный номер заявки",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Заявка по указанному номеру успешно удалена"
+          },
+          "400": {
+            "description": "invalid report number"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "404": {
+            "description": "report not found"
+          },
+          "500": {
+            "description": "internal error"
+          }
+        }
       }
     },
     "/api/reports/all": {
@@ -95,7 +141,6 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
                     "$ref": "#/components/schemas/Report"
                   }
                 }
@@ -155,7 +200,6 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
                     "$ref": "#/components/schemas/Report"
                   }
                 }
@@ -272,7 +316,6 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
                     "$ref": "#/components/schemas/Report"
                   }
                 }
@@ -327,7 +370,6 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "object",
                     "$ref": "#/components/schemas/Report"
                   }
                 }
@@ -405,6 +447,179 @@
           },
           "415": {
             "description": "unsupported media type"
+          },
+          "500": {
+            "description": "internal error"
+          }
+        }
+      }
+    },
+    "/api/reports": {
+      "put": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Изменение всех полей заявки",
+        "description": "Полная замена всех полей заявки. В теле запроса должен быть валидный JSON заявки со всеми корректно заполненными полями. Необязательное поле updated, так как она заполняется при внесении изменений. Возвращает измененный вариант заявки.",
+        "requestBody": {
+          "description": "Полный JSON заявки",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Report"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Измененная заявка",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid report data"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "404": {
+            "description": "report not found"
+          },
+          "500": {
+            "description": "internal error"
+          }
+        }
+      }
+    },
+    "/api/reports/status/{num}": {
+      "patch": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Изменение статуса заявки по номеру",
+        "description": "Изменение статуса заявки с уникальным номером на новый, переданный через параметр new.",
+        "parameters": [
+          {
+            "name": "num",
+            "in": "path",
+            "description": "Уникальный номер заявки",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 1
+            }
+          },
+          {
+            "name": "new",
+            "in": "query",
+            "description": "Новый статус заявки. Должно быть число от 1 до 5",
+            "schema": {
+              "type": "string",
+              "example": 2
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Заявка с измененным статусом",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid report number || incorrect new status"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "404": {
+            "description": "report not found"
+          },
+          "500": {
+            "description": "internal error"
+          }
+        }
+      }
+    },
+    "/api/reports/rejected": {
+      "delete": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Удаление всех заявок со статусом \"Отклонена\"",
+        "description": "Удаление всех заявок со статусом \"Отклонена\". Возвращает количество удаленных заявок.",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Уникальный номер созданной заявки",
+            "content": {
+              "plain/text": {
+                "schema": {
+                  "type": "string",
+                  "example": "Deleted rejected reports: 2"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "404": {
+            "description": "no rejected reports found"
+          },
+          "500": {
+            "description": "internal error"
+          }
+        }
+      }
+    },
+    "/api/reports/statistic": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Получение статистики по всеми заявкам",
+        "description": "Получение статистики на текущий момент по всем заявкам в базе данных.",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Статистика по заявкам",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Statistic"
+                }
+              }
+            }
           },
           "500": {
             "description": "internal error"
@@ -624,6 +839,48 @@
             "$ref": "#/components/schemas/Geo"
           }
         }
+      },
+      "Statistic": {
+        "type": "object",
+        "description": "JSON статистики по заявкам.",
+        "properties": {
+          "Total": {
+            "type": "integer",
+            "description": "Общее число заявок в базе данных.",
+            "format": "int64",
+            "example": 5
+          },
+          "Unverified": {
+            "type": "integer",
+            "description": "Число заявок со статусом \"Неверифицирована\".",
+            "format": "int64",
+            "example": 1
+          },
+          "Opened": {
+            "type": "integer",
+            "description": "Число заявок со статусом \"Принята\".",
+            "format": "int64",
+            "example": 1
+          },
+          "InProgress": {
+            "type": "integer",
+            "description": "Число заявок со статусом \"В работе\".",
+            "format": "int64",
+            "example": 1
+          },
+          "Closed": {
+            "type": "integer",
+            "description": "Число заявок со статусом \"Выполнена\".",
+            "format": "int64",
+            "example": 1
+          },
+          "Rejected": {
+            "type": "integer",
+            "description": "Число заявок со статусом \"Отклонена\".",
+            "format": "int64",
+            "example": 1
+          }
+        }
       }
     },
     "requestBodies": {
@@ -646,6 +903,14 @@
             }
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Необходимо вставить JWT токен",
+        "bearerFormat": "JWT"
       }
     }
   }
