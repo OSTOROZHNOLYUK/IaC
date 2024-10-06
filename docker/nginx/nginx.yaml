@@ -9,7 +9,7 @@ services:
       # - team
     restart: unless-stopped
     volumes:
-      - /home/monzo/www/:/usr/share/nginx/html
+      - /home/monzo/Frontend/lyuk-alert/build/:/usr/share/nginx/html
       - /home/monzo/IaC/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - /etc/letsencrypt/:/etc/letsencrypt
       - nginxVol:/var/log/
